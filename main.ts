@@ -4,9 +4,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     scene.cameraShake(4, 500)
     pause(100)
     info.changeLifeBy(-1)
-    wanted += 1
+    wanted += -1
 })
-let wanted = 0
+let police: Sprite = null
 let MyEnemy: Sprite = null
 scene.setBackgroundColor(9)
 tiles.setCurrentTilemap(tilemap`level1`)
@@ -49,6 +49,7 @@ let playerfollower = sprites.create(img`
     . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
 let movementenemy = 9000
+let wanted = 3
 game.onUpdateInterval(5000, function () {
     movementenemy += -1000
 })
@@ -68,26 +69,6 @@ forever(function () {
         movement = 1
     }
     MyEnemy.follow(mySprite, 80)
-    if (wanted == 5) {
-        MyEnemy = sprites.create(img`
-            . . . 2 2 9 4 2 2 2 2 . . . . 
-            . . 2 2 2 2 2 2 2 2 c 2 . . . 
-            . 2 c 2 2 2 2 2 2 2 c c 2 . . 
-            2 c c 2 2 2 2 2 2 2 c c 2 2 d 
-            2 c 2 4 4 4 4 4 4 4 2 c 2 2 2 
-            2 2 4 b b 4 b b b 4 4 b 2 2 2 
-            2 4 b b b 4 b b b b 4 2 2 2 2 
-            4 4 2 2 2 4 2 2 2 2 2 4 2 2 2 
-            4 4 4 4 4 4 f 4 4 4 f 4 2 d d 
-            4 4 4 4 4 4 f 4 4 f 4 4 4 2 d 
-            4 4 4 4 4 4 f f f 4 4 4 4 4 4 
-            4 f f f f 4 4 4 4 f f f 4 4 4 
-            . f f f f f 4 4 f f f f f 4 . 
-            . . f f f . . . . f f f f . . 
-            `, SpriteKind.Player)
-        MyEnemy.x = randint(100, 10)
-        MyEnemy.setKind(SpriteKind.Enemy)
-    }
 })
 game.onUpdateInterval(500, function () {
     if (controller.left.isPressed() || controller.right.isPressed()) {
@@ -99,6 +80,29 @@ game.onUpdateInterval(500, function () {
         movement += -5
         controller.moveSprite(mySprite, movement, movement)
         info.setScore(movement)
+    }
+})
+game.onUpdateInterval(100, function () {
+    if (wanted == 0) {
+        police = sprites.create(img`
+            . . . 8 8 8 8 8 8 8 8 . . . . 
+            . . 8 8 8 8 8 8 8 8 c 8 . . . 
+            . 8 c 8 8 8 8 8 8 8 c c 8 . . 
+            8 c c 8 8 8 8 8 8 8 c c 8 8 d 
+            8 c 8 d d d d d d d 8 c 8 8 8 
+            8 8 d b b d b b b d d b 8 8 8 
+            8 d b b b d b b b b d 8 8 8 8 
+            d d 8 8 8 d 8 8 8 8 8 d 8 8 8 
+            d d d d d d f d d d f d 8 d d 
+            d d d d d d f d d f d d d 8 d 
+            d d d d d d f f f d d d d d d 
+            d f f f f d d d d f f f d d d 
+            . f f f f f d d f f f f f d . 
+            . . f f f . . . . f f f f . . 
+            `, SpriteKind.Enemy)
+        police.x = randint(101, 11)
+        police.setKind(SpriteKind.Enemy)
+        police.follow(mySprite)
     }
 })
 game.onUpdateInterval(movementenemy, function () {
