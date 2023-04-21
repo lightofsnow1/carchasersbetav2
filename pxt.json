@@ -1,0 +1,30 @@
+{
+    "name": "carchasers",
+    "description": "",
+    "dependencies": {
+        "device": "*"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+        "assets.json",
+        "tilemap.g.jres",
+        "tilemap.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "branch": "v1.12.29",
+        "tag": "v1.12.29",
+        "commits": "https://github.com/microsoft/pxt-arcade/commits/e3682278e015a20ba1c143cb55ded707029d8938",
+        "target": "1.12.29",
+        "pxt": "8.5.40",
+        "targetId": "arcade"
+    },
+    "supportedTargets": [
+        "arcade"
+    ],
+    "preferredEditor": "blocksprj"
+}
